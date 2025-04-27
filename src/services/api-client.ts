@@ -1,8 +1,9 @@
 import axios from "axios";
+import API_KEY from "./secrets";
 
 export default axios.create({
   baseURL: "https://api.rawg.io/api",
   params: {
-    key: "1b5ab5e03a534987b1197cef8b528c80",
+    key: API_KEY,
   },
 });
