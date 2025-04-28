@@ -10,8 +10,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run Super-Linter
+      - name: Lint Code Base
         uses: github/super-linter@v3
+        uses: github/super-linter@v4
         env:
           DEFAULT_BRANCH: main
           VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
