@@ -2,11 +2,7 @@ name: Super-Linter
 
 on: push
 
-jobs:
-  build:
-  
-    runs-on: ubuntu-latest
-    
+jobs:    
   lint:
   
     runs-on: ubuntu-latest
