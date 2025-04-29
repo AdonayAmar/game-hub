@@ -3,7 +3,7 @@ import { BsChevronDown } from "react-icons/bs";
 import usePlatforms, { Platform } from "../hooks/usePlatforms";
 
 interface Props {
-  onSelectPlatform: (platform: Platform) => void;
+  onSelectPlatform: (platform: Platform | null) => void;
   selectedPlatform: Platform | null;
 }
 
@@ -18,7 +18,12 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
       <MenuList>
         {data.map((platform) => (
           <MenuItem
-            onClick={() => onSelectPlatform(platform)}
+            onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+              platform.id !== selectedPlatform?.id
+                ? onSelectPlatform(platform)
+                : onSelectPlatform(null);
+            }}
             key={platform.id}
           >
             {platform.name}
