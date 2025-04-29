@@ -11,7 +11,7 @@ import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 
 interface Props {
-  onSelectedGenre: (genre: Genre) => void;
+  onSelectedGenre: (genre: Genre | null) => void;
   selectedGenre: Genre | null;
 }
 
@@ -40,7 +40,12 @@ export const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
                 whiteSpace="normal"
                 textAlign="left"
                 fontWeight={data.id === selectedGenre?.id ? "bold" : "normal"}
-                onClick={() => onSelectedGenre(data)}
+                onClick={() => {
+                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                  data.id !== selectedGenre?.id
+                    ? onSelectedGenre(data)
+                    : onSelectedGenre(null);
+                }}
                 fontSize="lg"
                 variant="link"
               >
