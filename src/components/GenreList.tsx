@@ -21,35 +21,37 @@ export const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
   if (error) return null;
   if (isLoading) return <Spinner />;
 
+  const alreadySelectedCheck = (genre: Genre) => {
+    if (genre.id !== selectedGenre?.id) {
+      return genre;
+    }
+    return null;
+  };
+
   return (
     <>
       <Heading fontSize="2xl" marginBottom={3}>
         Genres
       </Heading>
       <List>
-        {data.map((data) => (
-          <ListItem key={data.id} paddingY="5px">
+        {data.map((genre) => (
+          <ListItem key={genre.id} paddingY="5px">
             <HStack>
               <Image
                 boxSize="32px"
                 borderRadius={8}
                 objectFit="cover"
-                src={getCroppedImageUrl(data.image_background)}
+                src={getCroppedImageUrl(genre.image_background)}
               />
               <Button
                 whiteSpace="normal"
                 textAlign="left"
-                fontWeight={data.id === selectedGenre?.id ? "bold" : "normal"}
-                onClick={() => {
-                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                  data.id !== selectedGenre?.id
-                    ? onSelectedGenre(data)
-                    : onSelectedGenre(null);
-                }}
+                fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+                onClick={() => onSelectedGenre(alreadySelectedCheck(genre))}
                 fontSize="lg"
                 variant="link"
               >
-                {data.name}
+                {genre.name}
               </Button>
             </HStack>
           </ListItem>

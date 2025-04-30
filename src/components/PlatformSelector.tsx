@@ -9,6 +9,12 @@ interface Props {
 
 const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
   const { data, error } = usePlatforms();
+  const alreadySelectedCheck = (platform: Platform) => {
+    if (platform.id !== selectedPlatform?.id) {
+      return platform;
+    }
+    return null;
+  };
   if (error) return null;
   return (
     <Menu>
@@ -19,10 +25,7 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
         {data.map((platform) => (
           <MenuItem
             onClick={() => {
-              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-              platform.id !== selectedPlatform?.id
-                ? onSelectPlatform(platform)
-                : onSelectPlatform(null);
+              onSelectPlatform(alreadySelectedCheck(platform));
             }}
             key={platform.id}
           >
